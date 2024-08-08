@@ -3,14 +3,15 @@ package CommonLibs.Implementation;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 
 public class CommonDrivers {
 
 
-
-   private WebDriver driver;
+    private WebDriver driver;
     int pageLoadTime;
     int elmentDisplayTime;
     String currentWorkingDir;
@@ -29,18 +30,26 @@ public class CommonDrivers {
 
     public CommonDrivers(String browserType) throws Exception {
 
-        pageLoadTime=60;
-        elmentDisplayTime=20;
-        currentWorkingDir=System.getProperty("user.dir");
+        pageLoadTime = 60;
+        elmentDisplayTime = 20;
+        currentWorkingDir = System.getProperty("user.dir");
 
-        if(browserType.equalsIgnoreCase("chrome")){
+        if (browserType.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver",
-                    currentWorkingDir+"/drivers/chromedriver.exe");
+                    currentWorkingDir + "/drivers/chromedriver.exe");
             System.setProperty("webdriver.chrome.verboseLogging", "true");
-            this.driver=new ChromeDriver();
-        }else{
+            this.driver = new ChromeDriver();
+        } else if (browserType.equalsIgnoreCase("edge")) {
+            System.setProperty("webdriver.edge.driver",
+                    currentWorkingDir + "/drivers/msedgedriver.exe");
+            System.setProperty("webdriver.edge.verboseLogging","true");
+            this.driver = new EdgeDriver();
+        } else if (browserType.equalsIgnoreCase("firefox")) {
+            System.setProperty("webdriver.firefox.driver",
+                    currentWorkingDir + "/drivers/geckodriver.exe");
+            this.driver=new FirefoxDriver();
+        } else
             throw new Exception("invalid browser: " + browserType);
-        }
 
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
