@@ -5,6 +5,7 @@ import CommonLibs.Utils.ReportsUtils;
 import com.Luma.Pages.CreateNewCustomerAccountPage;
 import com.Luma.Pages.LoginPage;
 import com.Luma.Pages.MenPage;
+import com.Luma.Pages.ProductDetailPage;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.utils.FileUtil;
 import com.github.javafaker.Faker;
@@ -39,6 +40,7 @@ public class BaseTest {
     MenPage menPage;
     Faker faker;
     CreateNewCustomerAccountPage cncAccount;
+    ProductDetailPage productDetailPage;
 
     @BeforeSuite
     public void preSetUp() throws IOException {
@@ -57,17 +59,12 @@ public class BaseTest {
         cmnDriver.navigateToURl(getBaseUrl);
 
         driver=cmnDriver.getDriver();
-
         loginPage=new LoginPage(driver);
-
         logger=LoggerFactory.getLogger(getClass());
-
         menPage=new MenPage(driver);
-
         faker=new Faker();
-
         cncAccount=new CreateNewCustomerAccountPage(driver);
-
+        productDetailPage=new ProductDetailPage(driver);
 
         reportsUtils=new ReportsUtils(currentWorkingDir+"/reports/reports.html");
 

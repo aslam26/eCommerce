@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.time.Duration;
 
@@ -15,6 +16,8 @@ public class CommonDrivers {
     int pageLoadTime;
     int elmentDisplayTime;
     String currentWorkingDir;
+
+
 
     public WebDriver getDriver() {
         return driver;
@@ -34,7 +37,7 @@ public class CommonDrivers {
         elmentDisplayTime = 20;
         currentWorkingDir = System.getProperty("user.dir");
 
-        if (browserType.equalsIgnoreCase("chrome")) {
+       if (browserType.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver",
                     currentWorkingDir + "/drivers/chromedriver.exe");
             System.setProperty("webdriver.chrome.verboseLogging", "true");
@@ -50,6 +53,17 @@ public class CommonDrivers {
             this.driver=new FirefoxDriver();
         } else
             throw new Exception("invalid browser: " + browserType);
+
+       /* if(browserType.equalsIgnoreCase("chrome")){
+            WebDriverManager.chromedriver().setup();
+            this.driver=new ChromeDriver();
+        } else if (browserType.equalsIgnoreCase("edge")) {
+            WebDriverManager.edgedriver().setup();
+            this.driver=new EdgeDriver();
+        }else {
+            throw new Exception("Invalid Browser: "+browserType);
+        } */
+
 
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
