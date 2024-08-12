@@ -7,6 +7,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.locators.RelativeLocator;
 
+/**
+ * Create by Aslam Mujawar on 11/08/24
+ */
+
 public class ProductDetailPage extends BasePage{
 
     public ProductDetailPage(WebDriver driver) {

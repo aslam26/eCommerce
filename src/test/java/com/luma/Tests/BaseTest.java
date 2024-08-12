@@ -2,23 +2,17 @@ package com.luma.Tests;
 
 import CommonLibs.Implementation.CommonDrivers;
 import CommonLibs.Utils.ReportsUtils;
+import CommonLibs.Utils.ScreenshotUtils;
 import com.Luma.Pages.CreateNewCustomerAccountPage;
 import com.Luma.Pages.LoginPage;
 import com.Luma.Pages.MenPage;
 import com.Luma.Pages.ProductDetailPage;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.utils.FileUtil;
 import com.github.javafaker.Faker;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-
-import java.io.File;
 import java.io.FileInputStream;
-
 import java.io.IOException;
 import java.util.Properties;
 import org.slf4j.Logger;
@@ -34,6 +28,7 @@ public class BaseTest {
     String getBrowserType;
     String getBaseUrl;
     ReportsUtils reportsUtils;
+    String reportFileName;
     LoginPage loginPage;
     String currentWorkingDir=System.getProperty("user.dir");
     public static Logger logger;
@@ -41,13 +36,15 @@ public class BaseTest {
     Faker faker;
     CreateNewCustomerAccountPage cncAccount;
     ProductDetailPage productDetailPage;
+    ScreenshotUtils screenshotUtils;
+
 
     @BeforeSuite
     public void preSetUp() throws IOException {
-
         prop=new Properties();
         FileInputStream ip=new FileInputStream(currentWorkingDir+"/config/config.properties");
         prop.load(ip);
+
     }
 
     @BeforeClass
@@ -65,19 +62,27 @@ public class BaseTest {
         faker=new Faker();
         cncAccount=new CreateNewCustomerAccountPage(driver);
         productDetailPage=new ProductDetailPage(driver);
+        reportFileName=currentWorkingDir+"/reports/eCommerceTestReport.html";
+        reportsUtils=new ReportsUtils(reportFileName);
+        screenshotUtils=new ScreenshotUtils(driver);
 
-        reportsUtils=new ReportsUtils(currentWorkingDir+"/reports/reports.html");
 
     }
 
     @AfterMethod
-    public void postFailure(ITestResult result) throws IOException {
+    public void postFailure(ITestResult result) throws Exception {
             String testCaseName = result.getName();
+            long executionTime=System.currentTimeMillis();
+            String screenshotFilename=currentWorkingDir+"/Screenshots/"+testCaseName+executionTime+".jpeg";
             if (result.getStatus() == ITestResult.FAILURE) {
                 reportsUtils.addTestLog(Status.FAIL, "One of test case failed" + testCaseName);
-                File screeshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-                FileUtils.copyFile(screeshot, new File("Screenshots/failed.png"));
+                screenshotUtils.captureAndSaveScreenshots(screenshotFilename);
+                reportsUtils.attachScreenShotToReport(screenshotFilename);
                 System.out.println("Screenshot taken");
+            } else if (result.getStatus()==ITestResult.SUCCESS) {
+                reportsUtils.addTestLog(Status.PASS,"Test Passed.");
+            } else if (result.getStatus()==ITestResult.SKIP) {
+                reportsUtils.addTestLog(Status.SKIP,"Test Skipped.");
             }
     }
 
@@ -86,12 +91,22 @@ public class BaseTest {
         if(cmnDriver !=null) {
             cmnDriver.closeAllBrowser();
         }
+
     }
 
-    @AfterSuite
-    public void closeReport(){
-        reportsUtils.flushReports();
-    }
 
+    @AfterSuite(alwaysRun = true)
+    public void postTeardown() {
+
+        try {
+            if (reportsUtils != null) {
+                reportsUtils.flushReports();
+                System.out.println("Reports flushed successfully.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }

@@ -3,27 +3,28 @@ package CommonLibs.Utils;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+
+/**
+ * Create by Aslam Mujawar on 08/08/24
+ */
 
 public class ReportsUtils {
 
-    ExtentHtmlReporter htmlReport; //For HTML reports
 
-    ExtentReports extentReports; //Generate Report
+      ExtentSparkReporter htmlReport; //For HTML reports
+      ExtentReports extentReports; //Generate Report
+      ExtentTest extentTest; //create class for test cases.
 
-    ExtentTest extentTest; //create class for test cases.
-
-    public ReportsUtils(String htmlReportFilename){
-
+     public ReportsUtils(String htmlReportFilename){
         htmlReportFilename=htmlReportFilename.trim();
-
-        htmlReport=new ExtentHtmlReporter(htmlReportFilename);
-
+        htmlReport=new ExtentSparkReporter(htmlReportFilename);
         extentReports=new ExtentReports();
-
         extentReports.attachReporter(htmlReport);
 
     }
+
 
     //Create TestCase Report
 
@@ -36,9 +37,13 @@ public class ReportsUtils {
         extentTest.log(status,comment);
     }
 
+    public void attachScreenShotToReport(String imagePath){
+        extentTest.addScreenCaptureFromPath(imagePath);
+    }
+
     //flush or close the reports
     public void flushReports(){
-        extentReports.flush();
+            extentReports.flush();
     }
 
 }

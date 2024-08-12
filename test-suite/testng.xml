@@ -1,10 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="MySuite">
-    <test name="MagentoeCommerceSoftwareTesting">
+<suite name="eCommerce Website Test">
+    <test name="Functional Testing" enabled="true">
         <classes>
-            <class name="com.luma.Tests.CreateNewCustomerAccountTest"/>
             <class name="com.luma.Tests.LoginTest"/>
-            <class name="com.luma.Tests.MenTest"/>
+            <class name="com.luma.Tests.MenTest">
+                <methods>
+                    <include name="verifyUserIsNavigateToJacketPage"/>
+                    <include name="productsWithNameAndPrice"/>
+                </methods>
+            </class>
         </classes>
-    </test>
-</suite>
+    </test> <!-- Test -->
+</suite> <!-- Suite -->

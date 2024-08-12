@@ -4,6 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+/**
+ * Create by Aslam Mujawar on 08/08/24
+ */
+
 public class CreateNewCustomerAccountTest extends BaseTest{
 
     @DataProvider(name="invalidPassword")
@@ -42,7 +46,7 @@ public class CreateNewCustomerAccountTest extends BaseTest{
         cncAccount.checkPassword(password,confirmPassword,expectedError);
     }
 
-    @Test(priority = 3  )
+    @Test(priority = 3 )
     public void verifyNewAccountIsCreated() throws InterruptedException {
         reportsUtils.createATestcase("Verify new account is created.");
         String firstname=faker.name().firstName();
@@ -53,7 +57,7 @@ public class CreateNewCustomerAccountTest extends BaseTest{
         cncAccount.enterDetailsToCreateAccount(firstname,lastname,email,password,password);
         Thread.sleep(5000);
         String actualMessage=cncAccount.checkForSuccessMessage();
-        Assert.assertEquals(actualMessage,"Thank you for registering with Main Website Store.");
+        Assert.assertEquals(actualMessage,"Thanks you for registering with Main Website Store.");
     }
 
 }
