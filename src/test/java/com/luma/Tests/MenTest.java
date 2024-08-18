@@ -3,6 +3,7 @@ package com.luma.Tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class MenTest extends BaseTest{
 
-    @Test
+    @Test(priority = 0)
     public void verifyUserIsNavigateToJacketPage(){
         reportsUtils.createATestcase("Verify user is navigated to Jackets Page.");
         String actualResult= menPage.navigateToProductPage();
@@ -21,8 +22,16 @@ public class MenTest extends BaseTest{
         logger.info("Navigation Completed.");
     }
 
+    @Test(priority = 1)
+    public void verifyUI() throws IOException {
+        reportsUtils.createATestcase("Verify UI");
+        menPage.closeAdvAlert();
+        boolean result= screenshotUtils.visualTest(currentWorkingDir+"/resources/magento.softwaretestingboard.com_men_tops-men_jackets-men.html.png");
+        Assert.assertTrue(result,"Images are not identical");
+    }
 
-    @Test(dependsOnMethods = "verifyUserIsNavigateToJacketPage")
+
+    @Test(priority = 3, dependsOnMethods = "verifyUserIsNavigateToJacketPage")
     public void productsWithNameAndPrice(){
         reportsUtils.createATestcase("Verify all Items in page is displayed.");
         List<String> list=new ArrayList<>();

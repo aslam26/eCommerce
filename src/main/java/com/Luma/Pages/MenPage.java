@@ -37,6 +37,9 @@ public class MenPage extends BasePage{
     @FindBy(css="h1#page-title-heading")
     WebElement headingOfPage;
 
+    @FindBy(xpath = "//div[@class='ea-stickybox-hide']")
+    WebElement closeAdv;
+
     public String navigateToProductPage(){
         Actions actions=new Actions(driver);
         actions.moveToElement(MenTab)
@@ -55,6 +58,10 @@ public class MenPage extends BasePage{
         }
         return list;
 
+    }
+
+    public void closeAdvAlert(){
+        closeAdv.click();
     }
 
     public List<String> getProductPrice(){

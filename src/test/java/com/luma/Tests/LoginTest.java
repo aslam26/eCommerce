@@ -45,7 +45,7 @@ public class LoginTest extends BaseTest{
         }else{
             reportsUtils.createATestcase("Verify user is logged In.");
             reportsUtils.addTestLog(Status.PASS,"test case passed.");
-            Assert.assertTrue(loginPage.isSignOutDisplayed(),"user is not Logged In");
+            Assert.assertTrue(loginPage.isSignOutDisplayed(),"user is Logged In");
             reportsUtils.addTestLog(Status.INFO,"Test Passed");
             logger.info("User logged in Successfully.");
         }

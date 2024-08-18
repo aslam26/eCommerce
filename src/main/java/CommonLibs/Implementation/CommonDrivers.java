@@ -3,6 +3,7 @@ package CommonLibs.Implementation;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -37,7 +38,7 @@ public class CommonDrivers {
         elmentDisplayTime = 20;
         currentWorkingDir = System.getProperty("user.dir");
 
-       if (browserType.equalsIgnoreCase("chrome")) {
+      /* if (browserType.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver",
                     currentWorkingDir + "/drivers/chromedriver.exe");
             System.setProperty("webdriver.chrome.verboseLogging", "true");
@@ -52,17 +53,24 @@ public class CommonDrivers {
                     currentWorkingDir + "/drivers/geckodriver.exe");
             this.driver=new FirefoxDriver();
         } else
-            throw new Exception("invalid browser: " + browserType);
+            throw new Exception("invalid browser: " + browserType);*/
 
-       /* if(browserType.equalsIgnoreCase("chrome")){
+       if(browserType.equalsIgnoreCase("chrome")){
             WebDriverManager.chromedriver().setup();
             this.driver=new ChromeDriver();
-        } else if (browserType.equalsIgnoreCase("edge")) {
+        } else if (browserType.equalsIgnoreCase("chromeHeadless")) {
+           WebDriverManager.chromedriver().setup();
+           ChromeOptions option=new ChromeOptions();
+           option.addArguments("--headless");
+           option.addArguments("--disable-gpu");
+           option.addArguments("--window-size=1920,1000");
+           driver=new ChromeDriver(option);
+       } else if (browserType.equalsIgnoreCase("edge")) {
             WebDriverManager.edgedriver().setup();
             this.driver=new EdgeDriver();
         }else {
             throw new Exception("Invalid Browser: "+browserType);
-        } */
+        }
 
 
         driver.manage().window().maximize();

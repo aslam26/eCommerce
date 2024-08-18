@@ -84,6 +84,7 @@ public class BaseTest {
             } else if (result.getStatus()==ITestResult.SKIP) {
                 reportsUtils.addTestLog(Status.SKIP,"Test Skipped.");
             }
+
     }
 
     @AfterClass
@@ -100,7 +101,7 @@ public class BaseTest {
 
         try {
             if (reportsUtils != null) {
-                reportsUtils.flushReports();
+               reportsUtils.flushReports();
                 System.out.println("Reports flushed successfully.");
             }
         } catch (Exception e) {

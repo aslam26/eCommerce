@@ -4,6 +4,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import org.apache.xmlbeans.impl.xb.xsdschema.All;
 
 
 /**
@@ -26,6 +27,7 @@ public class ReportsUtils {
     }
 
 
+
     //Create TestCase Report
 
     public void createATestcase(String testcase){
@@ -43,7 +45,9 @@ public class ReportsUtils {
 
     //flush or close the reports
     public void flushReports(){
-            extentReports.flush();
+         extentReports.flush();
     }
+
+
 
 }
