@@ -1,13 +1,15 @@
 package com.luma.Tests;
 
 import CommonLibs.Implementation.CommonDrivers;
-import CommonLibs.Utils.ReportsUtils;
 import CommonLibs.Utils.ScreenshotUtils;
 import com.Luma.Pages.CreateNewCustomerAccountPage;
 import com.Luma.Pages.LoginPage;
 import com.Luma.Pages.MenPage;
 import com.Luma.Pages.ProductDetailPage;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
@@ -27,8 +29,6 @@ public class BaseTest {
     public static Properties prop;
     String getBrowserType;
     String getBaseUrl;
-    ReportsUtils reportsUtils;
-    String reportFileName;
     LoginPage loginPage;
     String currentWorkingDir=System.getProperty("user.dir");
     public static Logger logger;
@@ -39,16 +39,26 @@ public class BaseTest {
     ScreenshotUtils screenshotUtils;
 
 
+    protected static ExtentReports extent;
+    protected ExtentTest test;
+    ExtentSparkReporter sparkReporter;
+
     @BeforeSuite
     public void preSetUp() throws IOException {
+
         prop=new Properties();
         FileInputStream ip=new FileInputStream(currentWorkingDir+"/config/config.properties");
         prop.load(ip);
 
+        sparkReporter = new ExtentSparkReporter(currentWorkingDir+"/reports/TestReport.html");
+        extent = new ExtentReports();
+        extent.attachReporter(sparkReporter);
     }
+
 
     @BeforeClass
     public void setup() throws Exception {
+
         getBrowserType=prop.getProperty("browserType");
         cmnDriver=new CommonDrivers(getBrowserType);
 
@@ -62,12 +72,10 @@ public class BaseTest {
         faker=new Faker();
         cncAccount=new CreateNewCustomerAccountPage(driver);
         productDetailPage=new ProductDetailPage(driver);
-        reportFileName=currentWorkingDir+"/reports/eCommerceTestReport.html";
-        reportsUtils=new ReportsUtils(reportFileName);
         screenshotUtils=new ScreenshotUtils(driver);
 
-
     }
+
 
     @AfterMethod
     public void postFailure(ITestResult result) throws Exception {
@@ -75,14 +83,16 @@ public class BaseTest {
             long executionTime=System.currentTimeMillis();
             String screenshotFilename=currentWorkingDir+"/Screenshots/"+testCaseName+executionTime+".jpeg";
             if (result.getStatus() == ITestResult.FAILURE) {
-                reportsUtils.addTestLog(Status.FAIL, "One of test case failed" + testCaseName);
+                test.log(Status.FAIL,"One test case failed.");
                 screenshotUtils.captureAndSaveScreenshots(screenshotFilename);
-                reportsUtils.attachScreenShotToReport(screenshotFilename);
+                test.addScreenCaptureFromPath(screenshotFilename);
                 System.out.println("Screenshot taken");
             } else if (result.getStatus()==ITestResult.SUCCESS) {
-                reportsUtils.addTestLog(Status.PASS,"Test Passed.");
+                test.log(Status.PASS,"success");
             } else if (result.getStatus()==ITestResult.SKIP) {
-                reportsUtils.addTestLog(Status.SKIP,"Test Skipped.");
+                test.log(Status.SKIP,"SKipped");
+            }else {
+                throw new Exception("Not Found.");
             }
 
     }
@@ -92,22 +102,13 @@ public class BaseTest {
         if(cmnDriver !=null) {
             cmnDriver.closeAllBrowser();
         }
-
     }
 
 
     @AfterSuite(alwaysRun = true)
     public void postTeardown() {
-
-        try {
-            if (reportsUtils != null) {
-               reportsUtils.flushReports();
-                System.out.println("Reports flushed successfully.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        extent.flush();
+        System.out.println("Report flushed successfully.");
     }
 
 }

@@ -25,29 +25,25 @@ public class LoginTest extends BaseTest{
 
 
     @Test
-    public void verifyUserIsNavigateToSignIn(){
-        reportsUtils.createATestcase("Verify user is navigated to SignIn.");
-        reportsUtils.addTestLog(Status.INFO,"Test start");
+    public void verifyUserIsNavigateToSignIn() throws IllegalAccessException {
+
+       test=extent.createTest("Verify user is naviagate to SignIn");
         loginPage.naviagteSignIn();
         Assert.assertTrue(loginPage.isSignInPageDisplayed(),"Customer Login is not displayed.");
-        reportsUtils.addTestLog(Status.INFO,"Test Passed");
-        logger.info("Navigation Completed");
+
+
     }
 
     @Test(dependsOnMethods = "verifyUserIsNavigateToSignIn",dataProvider = "loginData")
-    public void verifyLoginFunctionality(String username,String password,boolean isValid) throws InterruptedException {
+    public void verifyLoginFunctionality(String username,String password,boolean isValid) throws InterruptedException, IllegalAccessException {
         String testName="Verify Login Functionality - Email: "+username+ ", Password: "+password+", Expected Result: "+ (isValid ? "valid":"invalid");
-        reportsUtils.createATestcase(testName);
-        reportsUtils.addTestLog(Status.INFO,"Test Start");
+        test= extent.createTest(testName);
         loginPage.performLogin(username,password);
         if(!isValid){
             Assert.assertEquals(loginPage.getErrorMessage(),"The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.");
         }else{
-            reportsUtils.createATestcase("Verify user is logged In.");
-            reportsUtils.addTestLog(Status.PASS,"test case passed.");
+            test=extent.createTest("verify user is logged in");
             Assert.assertTrue(loginPage.isSignOutDisplayed(),"user is Logged In");
-            reportsUtils.addTestLog(Status.INFO,"Test Passed");
-            logger.info("User logged in Successfully.");
         }
 
     }

@@ -1,10 +1,12 @@
 package com.Luma.Pages;
 
 import org.checkerframework.checker.units.qual.A;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,12 @@ public class MenPage extends BasePage{
     @FindBy(xpath = "//div[@class='ea-stickybox-hide']")
     WebElement closeAdv;
 
+    @FindBy(xpath = "//main//div[2]/div[3]/select")
+    WebElement sortDropdown;
+
+    @FindBy(css="input#search")
+    WebElement searchField;
+
     public String navigateToProductPage(){
         Actions actions=new Actions(driver);
         actions.moveToElement(MenTab)
@@ -73,5 +81,14 @@ public class MenPage extends BasePage{
         return list;
     }
 
+    public void selectFromDropDown(String text){
+        Select select=new Select(sortDropdown);
+        select.selectByVisibleText(text);
+    }
 
+
+    public void searchForItem(String item){
+        searchField.sendKeys(item);
+        searchField.sendKeys(Keys.ENTER);
+    }
 }

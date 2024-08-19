@@ -24,16 +24,15 @@ public class CreateNewCustomerAccountTest extends BaseTest{
 
     @Test(priority = 0)
     public void verifyRequiredFieldErrorMessage(){
-        reportsUtils.createATestcase("Verify Create a New Account Page is displayed.");
+        test=extent.createTest("Verify Create a New Account Page is displayed.");
         cncAccount.clickingCreateAnAccountLink();
         cncAccount.enterDetailsToCreateAccount("","","","","");
         cncAccount.checkMandatoryField();
-        reportsUtils.createATestcase("Verify required field error messages are displayed.");
     }
 
     @Test(priority = 1)
     public void verifyEmailAddress() throws InterruptedException {
-        reportsUtils.createATestcase("Verify error message is displayed for invalid email address");
+        test= extent.createTest("Verify error message is displayed for invalid email address");
         String invalidEmail=prop.getProperty("invalidEmail");
         cncAccount.checkEmailAddress(invalidEmail);
 
@@ -41,14 +40,14 @@ public class CreateNewCustomerAccountTest extends BaseTest{
 
     @Test(priority = 2,dataProvider = "invalidPassword")
     public void verifyForInvalidPassword(String password,String confirmPassword, String expectedError){
-        reportsUtils.createATestcase("Verify error message is displayed for invalid password.");
+        test= extent.createTest("Verify error message is displayed for invalid password.");
         cncAccount.enterDetailsToCreateAccount("oggy","Doe","oggy@cartoon.com",password,confirmPassword);
         cncAccount.checkPassword(password,confirmPassword,expectedError);
     }
 
     @Test(priority = 3 )
     public void verifyNewAccountIsCreated() throws InterruptedException {
-        reportsUtils.createATestcase("Verify new account is created.");
+        test=extent.createTest("Verify new account is created");
         String firstname=faker.name().firstName();
         String lastname=faker.name().lastName();
         String email=faker.internet().emailAddress();
@@ -57,7 +56,7 @@ public class CreateNewCustomerAccountTest extends BaseTest{
         cncAccount.enterDetailsToCreateAccount(firstname,lastname,email,password,password);
         Thread.sleep(5000);
         String actualMessage=cncAccount.checkForSuccessMessage();
-        Assert.assertEquals(actualMessage,"Thanks you for registering with Main Website Store.");
+        Assert.assertEquals(actualMessage,"Thank you for registering with Main Website Store.");
     }
 
 }

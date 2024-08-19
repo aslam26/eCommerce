@@ -51,7 +51,7 @@ public class ScreenshotUtils {
 
         driver.manage().window().maximize();
         BufferedImage actualImage = new AShot()
-                .shootingStrategy(ShootingStrategies.viewportPasting(5000))
+                .shootingStrategy(ShootingStrategies.viewportPasting(1000))
                 .takeScreenshot(driver)
                 .getImage();
         ImageIO.write(actualImage, "PNG", new File(currentWorkingDir+"/resources/fullpage_screenshot.png"));

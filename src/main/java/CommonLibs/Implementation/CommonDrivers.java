@@ -38,23 +38,6 @@ public class CommonDrivers {
         elmentDisplayTime = 20;
         currentWorkingDir = System.getProperty("user.dir");
 
-      /* if (browserType.equalsIgnoreCase("chrome")) {
-            System.setProperty("webdriver.chrome.driver",
-                    currentWorkingDir + "/drivers/chromedriver.exe");
-            System.setProperty("webdriver.chrome.verboseLogging", "true");
-            this.driver = new ChromeDriver();
-        } else if (browserType.equalsIgnoreCase("edge")) {
-            System.setProperty("webdriver.edge.driver",
-                    currentWorkingDir + "/drivers/msedgedriver.exe");
-            System.setProperty("webdriver.edge.verboseLogging","true");
-            this.driver = new EdgeDriver();
-        } else if (browserType.equalsIgnoreCase("firefox")) {
-            System.setProperty("webdriver.firefox.driver",
-                    currentWorkingDir + "/drivers/geckodriver.exe");
-            this.driver=new FirefoxDriver();
-        } else
-            throw new Exception("invalid browser: " + browserType);*/
-
        if(browserType.equalsIgnoreCase("chrome")){
             WebDriverManager.chromedriver().setup();
             this.driver=new ChromeDriver();

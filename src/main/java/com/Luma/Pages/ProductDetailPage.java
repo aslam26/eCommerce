@@ -27,6 +27,8 @@ public class ProductDetailPage extends BasePage{
     @FindBy(css="a#ui-id-19")
     WebElement JacketMenu;
 
+    @FindBy(css=":nth-child(3) strong.modes-mode.active.mode-list")
+    WebElement listView;
 
    // WebElement montanaWindJacket=driver.findElement(By.cssSelector("li:nth-child(2) div > strong"));
 

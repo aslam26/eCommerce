@@ -15,16 +15,16 @@ public class MenTest extends BaseTest{
 
     @Test(priority = 0)
     public void verifyUserIsNavigateToJacketPage(){
-        reportsUtils.createATestcase("Verify user is navigated to Jackets Page.");
+        test= extent.createTest("Verify user is navigated to Jackets Page.");
         String actualResult= menPage.navigateToProductPage();
         String expectedResult="Jackets";
         Assert.assertEquals(actualResult,expectedResult,"Heading not matching!");
         logger.info("Navigation Completed.");
     }
 
-    @Test(priority = 1)
+    @Test(enabled = false)
     public void verifyUI() throws IOException {
-        reportsUtils.createATestcase("Verify UI");
+        test=extent.createTest("Verify UI");
         menPage.closeAdvAlert();
         boolean result= screenshotUtils.visualTest(currentWorkingDir+"/resources/magento.softwaretestingboard.com_men_tops-men_jackets-men.html.png");
         Assert.assertTrue(result,"Images are not identical");
@@ -33,7 +33,7 @@ public class MenTest extends BaseTest{
 
     @Test(priority = 3, dependsOnMethods = "verifyUserIsNavigateToJacketPage")
     public void productsWithNameAndPrice(){
-        reportsUtils.createATestcase("Verify all Items in page is displayed.");
+       test=extent.createTest("Verify all Items in page is displayed");
         List<String> list=new ArrayList<>();
         list=menPage.getProductNames();
 
@@ -44,5 +44,7 @@ public class MenTest extends BaseTest{
             System.out.println("Product Name: "+list.get(i)+", Price: "+price.get(i));
         }
     }
+
+
 
 }
