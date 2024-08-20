@@ -39,6 +39,7 @@ public class BaseTest {
     ScreenshotUtils screenshotUtils;
 
 
+
     protected static ExtentReports extent;
     protected ExtentTest test;
     ExtentSparkReporter sparkReporter;
