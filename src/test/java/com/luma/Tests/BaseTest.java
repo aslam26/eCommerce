@@ -2,6 +2,7 @@ package com.luma.Tests;
 
 import CommonLibs.Implementation.CommonDrivers;
 import CommonLibs.Utils.ScreenshotUtils;
+import CommonLibs.Utils.WaitUtils;
 import com.Luma.Pages.CreateNewCustomerAccountPage;
 import com.Luma.Pages.LoginPage;
 import com.Luma.Pages.MenPage;
@@ -37,6 +38,7 @@ public class BaseTest {
     CreateNewCustomerAccountPage cncAccount;
     ProductDetailPage productDetailPage;
     ScreenshotUtils screenshotUtils;
+    WaitUtils waitUtils;
 
 
 
@@ -74,6 +76,7 @@ public class BaseTest {
         cncAccount=new CreateNewCustomerAccountPage(driver);
         productDetailPage=new ProductDetailPage(driver);
         screenshotUtils=new ScreenshotUtils(driver);
+        waitUtils=new WaitUtils(driver,10);
 
     }
 

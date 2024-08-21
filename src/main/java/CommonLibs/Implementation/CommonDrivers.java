@@ -47,7 +47,7 @@ public class CommonDrivers {
            option.addArguments("--headless");
            option.addArguments("--disable-gpu");
            option.addArguments("--window-size=1920,1000");
-           driver=new ChromeDriver(option);
+           this.driver=new ChromeDriver(option);
        } else if (browserType.equalsIgnoreCase("edge")) {
             WebDriverManager.edgedriver().setup();
             this.driver=new EdgeDriver();

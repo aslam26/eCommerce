@@ -3,9 +3,10 @@
 <suite name="eCommerce Website Test">
     <test name="Functional Testing" enabled="true">
         <classes>
-            <class name="com.luma.Tests.CreateNewCustomerAccountTest"/>
+             <class name="com.luma.Tests.CreateNewCustomerAccountTest"/>
             <class name="com.luma.Tests.LoginTest"/>
             <class name="com.luma.Tests.MenTest"/>
+            <class name="com.luma.Tests.ProductDetailTest"/>
             <class name="com.luma.Tests.ProductDetailTest"/>
         </classes>
     </test> <!-- Test -->
