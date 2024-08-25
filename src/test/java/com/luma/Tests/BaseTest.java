@@ -3,10 +3,7 @@ package com.luma.Tests;
 import CommonLibs.Implementation.CommonDrivers;
 import CommonLibs.Utils.ScreenshotUtils;
 import CommonLibs.Utils.WaitUtils;
-import com.Luma.Pages.CreateNewCustomerAccountPage;
-import com.Luma.Pages.LoginPage;
-import com.Luma.Pages.MenPage;
-import com.Luma.Pages.ProductDetailPage;
+import com.Luma.Pages.*;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -36,9 +33,10 @@ public class BaseTest {
     MenPage menPage;
     Faker faker;
     CreateNewCustomerAccountPage cncAccount;
-    ProductDetailPage productDetailPage;
+    ProductListPage productListPage;
     ScreenshotUtils screenshotUtils;
     WaitUtils waitUtils;
+    MiniCartPage miniCartPage;
 
 
 
@@ -74,9 +72,10 @@ public class BaseTest {
         menPage=new MenPage(driver);
         faker=new Faker();
         cncAccount=new CreateNewCustomerAccountPage(driver);
-        productDetailPage=new ProductDetailPage(driver);
+        productListPage=new ProductListPage(driver);
         screenshotUtils=new ScreenshotUtils(driver);
         waitUtils=new WaitUtils(driver,10);
+        miniCartPage=new MiniCartPage(driver);
 
     }
 
@@ -85,7 +84,7 @@ public class BaseTest {
     public void postFailure(ITestResult result) throws Exception {
             String testCaseName = result.getName();
             long executionTime=System.currentTimeMillis();
-            String screenshotFilename=currentWorkingDir+"/Screenshots/"+testCaseName+executionTime+".jpeg";
+            String screenshotFilename=currentWorkingDir+"/Failed_Screenshots/"+testCaseName+executionTime+".jpeg";
             if (result.getStatus() == ITestResult.FAILURE) {
                 test.log(Status.FAIL,"One test case failed.");
                 screenshotUtils.captureAndSaveScreenshots(screenshotFilename);
