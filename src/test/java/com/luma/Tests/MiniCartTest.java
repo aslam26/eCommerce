@@ -60,13 +60,13 @@ public class MiniCartTest extends BaseTest{
         Assert.assertEquals(miniCartPage.getTitleOfShoppingCartPage(),"Shopping Cart");
     }
 
-    @Test(priority = 6)
+    @Test(priority = 6, dependsOnMethods = "loginIntoApp")
     public void VerifyCancelClosesTheModelOverlay() throws InterruptedException {
         test=extent.createTest("Verify model overlay is closed, upon clicking cancel button");
         miniCartPage.clickMiniCart();
         miniCartPage.removeItem();
         Thread.sleep(5000);
-        Assert.assertTrue(miniCartPage.cancelModel(),"Overlay not closed.");
+        Assert.assertEquals(miniCartPage.cancelModel(),false);
     }
     @Test(priority = 7)
     public void verifyRemoveItem(){

@@ -125,19 +125,8 @@ public class MiniCartPage extends BasePage{
     }
 
     public boolean cancelModel() {
-        try {
-            modelCancelButton.click();
-
-            //Check if model overlay is displayed or not, after cancel button clicked.
-            if(cancelRemoveItemOverlay.isDisplayed()){
-                return false; //Model was not closed.
-            }else {
-                return true; //Model is closed.
-            }
-        }catch (NoSuchElementException e){
-            return true; //Model is closed.
-        }
-
+        modelCancelButton.click();
+        return cancelRemoveItemOverlay.isDisplayed();
     }
 
 
