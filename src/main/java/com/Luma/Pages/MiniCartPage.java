@@ -16,6 +16,7 @@ public class MiniCartPage extends BasePage{
     @FindBy(xpath = "//div[@class='minicart-wrapper']")
     public WebElement cartButton;
 
+
     @FindBy (xpath="//a[@class='action showcart active']")
      public WebElement miniCartDialog;
 
@@ -41,7 +42,7 @@ public class MiniCartPage extends BasePage{
     public WebElement updateCartButton;
 
     @FindBy(xpath = "//span[normalize-space(text())='Shopping Cart']")
-    WebElement shoppingCarTitleOfPage;
+    public WebElement shoppingCarTitleOfPage;
 
     @FindBy(xpath = "//div[normalize-space(text())='Shipping Address']")
     public WebElement shippingAddressTitleOfPage;
@@ -73,7 +74,12 @@ public class MiniCartPage extends BasePage{
         cartButton.click();
     }
 
+    public void showMiniCart(){
+        miniCartDialogClosed.click();
+    }
+
     public boolean openMiniCart() throws Exception {
+        // getAttribute: Fetches the run time value associated with a DOM attribute. It returns the data associated with the DOM attribute or property of the element.
         String miniAttributeClass = miniCartDialog.getAttribute("class");
         if (miniAttributeClass.equals("action showcart active")) {
             return true;
@@ -126,6 +132,7 @@ public class MiniCartPage extends BasePage{
 
     public boolean cancelModel() {
         modelCancelButton.click();
+        //isDisplayed: This method is used to check if the connected Element is displayed on a webpage
         return cancelRemoveItemOverlay.isDisplayed();
     }
 

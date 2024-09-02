@@ -8,6 +8,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +40,6 @@ public class MenPage extends BasePage{
     @FindBy(css="h1#page-title-heading")
     WebElement headingOfPage;
 
-    @FindBy(xpath = "//div[@class='ea-stickybox-hide']")
-    WebElement closeAdv;
 
     @FindBy(xpath = "//main//div[2]/div[3]/select")
     WebElement sortDropdown;
@@ -51,8 +50,11 @@ public class MenPage extends BasePage{
     public String navigateToProductPage(){
         Actions actions=new Actions(driver);
         actions.moveToElement(MenTab)
+                .pause(Duration.ofSeconds(1))
                 .moveToElement(TopMenu)
+                .pause(Duration.ofSeconds(1))
                 .moveToElement(JacketMenu)
+                .pause(Duration.ofSeconds(1))
                 .perform();
         JacketMenu.click();
         return headingOfPage.getText();
@@ -68,9 +70,6 @@ public class MenPage extends BasePage{
 
     }
 
-    public void closeAdvAlert(){
-        closeAdv.click();
-    }
 
     public List<String> getProductPrice(){
 

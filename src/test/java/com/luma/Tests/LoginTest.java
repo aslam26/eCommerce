@@ -40,6 +40,7 @@ public class LoginTest extends BaseTest{
         test= extent.createTest(testName);
         loginPage.performLogin(username,password);
         if(!isValid){
+           waitUtils.waitUntilTextVisible(loginPage.errorMessage,"The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.");
             Assert.assertEquals(loginPage.getErrorMessage(),"The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.");
         }else{
             test=extent.createTest("verify user is logged in");

@@ -77,20 +77,6 @@ public class ProductListPage extends BasePage{
     WebElement titleOfProduct;
 
 
-
-    // WebElement montanaWindJacket=driver.findElement(By.cssSelector("li:nth-child(2) div > strong"));
-
-    //WebElement taurusJacket=driver.findElement(RelativeLocator.with(By.cssSelector("ol > li div > strong > a")).below(montanaWindJacket));
-
-  /*  private WebElement getMontanaWindJacket() {
-        return driver.findElement(By.cssSelector("li:nth-child(2) div > strong"));
-    }
-
-    private WebElement getTaurusJacket() {
-        return driver.findElement(RelativeLocator.with(By.cssSelector("ol > li div > strong > a")).below(getMontanaWindJacket()));
-    }*/
-
-
     public void navigateToProductPage(){
 
         actions.moveToElement(MenTab)

@@ -25,7 +25,7 @@ public class MenTest extends BaseTest{
     @Test(enabled = false)
     public void verifyUI() throws IOException {
         test=extent.createTest("Verify UI");
-        menPage.closeAdvAlert();
+        helper.closePopUp();
         boolean result= screenshotUtils.visualTest(currentWorkingDir+"/resources/magento.softwaretestingboard.com_men_tops-men_jackets-men.html.png");
         Assert.assertTrue(result,"Images are not identical");
     }

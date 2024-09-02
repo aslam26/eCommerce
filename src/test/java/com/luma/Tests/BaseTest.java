@@ -1,6 +1,7 @@
 package com.luma.Tests;
 
 import CommonLibs.Implementation.CommonDrivers;
+import CommonLibs.Utils.Helper;
 import CommonLibs.Utils.ScreenshotUtils;
 import CommonLibs.Utils.WaitUtils;
 import com.Luma.Pages.*;
@@ -37,6 +38,7 @@ public class BaseTest {
     ScreenshotUtils screenshotUtils;
     WaitUtils waitUtils;
     MiniCartPage miniCartPage;
+    Helper helper;
 
 
 
@@ -74,8 +76,9 @@ public class BaseTest {
         cncAccount=new CreateNewCustomerAccountPage(driver);
         productListPage=new ProductListPage(driver);
         screenshotUtils=new ScreenshotUtils(driver);
-        waitUtils=new WaitUtils(driver,10);
+        waitUtils=new WaitUtils(driver,20);
         miniCartPage=new MiniCartPage(driver);
+        helper=new Helper(driver);
 
     }
 

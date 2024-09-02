@@ -36,13 +36,13 @@ public class LoginPage extends BasePage{
         WebElement actionButton;
 
         @FindBy(xpath = "//div[@aria-hidden='false']//a[normalize-space()='Sign Out']")
-        WebElement signOutButton;
+        public WebElement signOutButton;
 
         @FindBy(css=":nth-child(7)")
         WebElement customerLoginTitle;
 
         @FindBy(xpath = "//div[@data-bind='html: $parent.prepareMessageForHtml(message.text)']")
-        WebElement errorMessage;
+        public WebElement errorMessage;
 
 
 
@@ -76,8 +76,9 @@ public class LoginPage extends BasePage{
     public String getErrorMessage(){
         return errorMessage.getText();
     }
-    public boolean isSignOutDisplayed(){
+    public boolean isSignOutDisplayed() throws InterruptedException {
         actionButton.click();
+        Thread.sleep(3000);
         return signOutButton.isDisplayed();
     }
 

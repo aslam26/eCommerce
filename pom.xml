@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <selenium.java.version>4.23.0</selenium.java.version>
-        <testng.version>7.8.0</testng.version>
+        <testng.version>7.7.1</testng.version>
         <webdrivermanager.version>5.8.0</webdrivermanager.version>
         <commons-io.version>2.11.0</commons-io.version>
         <datafaker.version>1.0.2</datafaker.version>
@@ -86,20 +86,9 @@
             <version>5.2.3</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml-schemas</artifactId>
-            <version>4.1.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
             <version>4.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.7.1</version>
-            <scope>compile</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
@@ -133,7 +122,7 @@
                 <version>3.0.0-M5</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>sanity.xml</suiteXmlFile>
+                        <suiteXmlFile>${basedir}/test-suite/sanity.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

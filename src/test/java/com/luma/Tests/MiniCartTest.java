@@ -1,6 +1,7 @@
 package com.luma.Tests;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -41,14 +42,16 @@ public class MiniCartTest extends BaseTest{
         miniCartPage.setTopCartProceedToCheckOutButton();
         waitUtils.waitUntilElementVisible(miniCartPage.shippingAddressTitleOfPage);
         Assert.assertEquals(miniCartPage.getTitleOfShoppingAddressPage(),"Shipping Address");
-        driver.navigate().back();
+        System.out.println(driver.getCurrentUrl());
     }
 
     @Test(priority = 4)
-    public void verifyNavigateToUpdateCartPage(){
+    public void verifyNavigateToUpdateCartPage() throws Exception {
         test=extent.createTest("Verify clicking Edit item, user is navigate to update cart page.");
-        miniCartPage.clickMiniCart();
+        driver.navigate().to("https://magento.softwaretestingboard.com/checkout/cart/index/");
+        miniCartPage.showMiniCart();
         miniCartPage.setEditItem();
+        waitUtils.waitUntilElementVisible(miniCartPage.updateCartButton);
         Assert.assertTrue(miniCartPage.updateCartButton.isDisplayed());
     }
 
@@ -57,6 +60,7 @@ public class MiniCartTest extends BaseTest{
         test=extent.createTest("Verify user is navigated to shopping cart page, on clicking 'View and Edit Cart' link");
         miniCartPage.clickMiniCart();
         miniCartPage.setViewAndEditCartLink();
+        waitUtils.waitUntilTextVisible(miniCartPage.shoppingCarTitleOfPage,"Shopping Cart");
         Assert.assertEquals(miniCartPage.getTitleOfShoppingCartPage(),"Shopping Cart");
     }
 
@@ -69,8 +73,9 @@ public class MiniCartTest extends BaseTest{
         Assert.assertEquals(miniCartPage.cancelModel(),false);
     }
     @Test(priority = 7)
-    public void verifyRemoveItem(){
+    public void verifyRemoveItem() throws InterruptedException {
         test=extent.createTest("Verify item is removed from Mini-Cart upon clicking Remove Item button");
+        Thread.sleep(3000);
         miniCartPage.removeItem();
         waitUtils.waitUntilElementVisible(miniCartPage.modelOkButton);
         miniCartPage.deleteItemConfirmation();
