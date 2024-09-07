@@ -65,78 +65,46 @@ public class CreateNewCustomerAccountPage extends BasePage{
         createAccountButton.click();
     }
 
-    public void checkMandatoryField(){
-
-        if(addFirstName.getAttribute("value").isEmpty()){
-            Assert.assertTrue(firstnameerror.isDisplayed());
-            Assert.assertEquals(firstnameerror.getText(),"This is a required field.");
-        }
-        if(addLastName.getAttribute("value").isEmpty()){
-            Assert.assertTrue(lastnameerror.isDisplayed());
-            Assert.assertEquals(firstnameerror.getText(),"This is a required field.");
-        }
-        if(addEmailAddress.getAttribute("value").isEmpty()){
-            Assert.assertTrue(emailaddresserror.isDisplayed());
-            Assert.assertEquals(emailaddresserror.getText(),"This is a required field.");
-        }
-        if(addPassword.getAttribute("value").isEmpty()){
-            Assert.assertTrue(passworderror.isDisplayed());
-            Assert.assertEquals(passworderror.getText(),"This is a required field.");
-        }
-        if(addPasswordConfirmation.getAttribute("value").isEmpty()){
-            Assert.assertTrue(passwordconfirmationerror.isDisplayed());
-            Assert.assertEquals(passwordconfirmationerror.getText(),"This is a required field.");
-        }
+    public String getFirstNameErrorText(){
+        return firstnameerror.getText();
+    }
+    public String getLastNameErrorText(){
+        return lastnameerror.getText();
+    }
+    public String getEmailErrorText(){
+        return emailaddresserror.getText();
+    }
+    public String getPasswordErrorText(){
+        return passworderror.getText();
+    }
+    public String getConfirmPasswordText(){
+        return passwordconfirmationerror.getText();
     }
 
+
+
     public void checkEmailAddress(String email) throws InterruptedException {
-        addFirstName.sendKeys("joe");
-        addLastName.sendKeys("pio");
+        addFirstName.sendKeys("oggy");
+        addLastName.sendKeys("cartoon");
         addEmailAddress.clear();
         addEmailAddress.sendKeys(email);
         createAccountButton.click();
-        Assert.assertTrue(emailaddresserror.isDisplayed());
-        Assert.assertEquals(emailaddresserror.getText(),"Please enter a valid email address (Ex: johndoe@domain.com).");
     }
 
-    public void checkPassword(String password,String confirPassword, String expectedError){
-        addPassword.clear();
-        addPassword.sendKeys(password);
-        addPasswordConfirmation.clear();
-        addPasswordConfirmation.sendKeys(confirPassword);
-        createAccountButton.click();
-        if(password.length() < 8){
-            Assert.assertTrue(passworderror.isDisplayed());
-            Assert.assertEquals(passworderror.getText(),expectedError); //Minimum length of this field must be equal or greater than 8 symbols. Leading and trailing spaces will be ignored
-        }
+    public String invalidEmailErrorDisplayed(){
+        return emailaddresserror.getText();
+    }
 
-        if(!password.matches(".*[A-Z].*")){
-            Assert.assertTrue(passworderror.isDisplayed());
-            Assert.assertEquals(passworderror.getText(),expectedError);
-        }
-        if(!password.matches(".*[a-z].*")){
-            Assert.assertTrue(passworderror.isDisplayed());
-            Assert.assertEquals(passworderror.getText(),expectedError);
-        }
-        if(!password.matches(".*\\d.")){
-            Assert.assertTrue(passworderror.isDisplayed());
-            Assert.assertEquals(passworderror.getText(),expectedError);
-        }
-        if(!password.matches(".*[@#$%^&+=].*")){
-            Assert.assertTrue(passworderror.isDisplayed());
-            Assert.assertEquals(passworderror.getText(),expectedError);
-        }
-        if(!password.equals(confirPassword)){
-            Assert.assertTrue(passwordconfirmationerror.isDisplayed());
-            Assert.assertEquals(passwordconfirmationerror.getText(),expectedError);
-        }
+    public String getInvalidPasswordErrorMessage(){
+        return passworderror.getText();
+    }
 
+    public String getInvalidConfirmPasswordErrorMessage(){
+        return passwordconfirmationerror.getText();
     }
 
     public String checkForSuccessMessage() throws InterruptedException {
-        String actual=successMessage.getText();
-        return actual;
-
+        return successMessage.getText();
     }
 
 

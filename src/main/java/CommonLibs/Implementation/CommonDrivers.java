@@ -1,5 +1,6 @@
 package CommonLibs.Implementation;
 
+import lombok.Getter;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,22 +18,12 @@ import java.util.Map;
 public class CommonDrivers {
 
 
+    @Getter
     private WebDriver driver;
     int pageLoadTime;
     int elmentDisplayTime;
 
 
-    public WebDriver getDriver() {
-        return driver;
-    }
-
-    public void setPageLoadTime(int pageLoadTime) {
-        this.pageLoadTime = pageLoadTime;
-    }
-
-    public void setElmentDisplayTime(int elmentDisplayTime) {
-        this.elmentDisplayTime = elmentDisplayTime;
-    }
 
     public CommonDrivers(String browserType) throws Exception {
 
@@ -62,7 +53,7 @@ public class CommonDrivers {
            EdgeOptions options=new EdgeOptions();
            options.addArguments("--headless");
            options.addArguments("--disable-gpu");
-          // options.addArguments("--window-size=1920,1080");
+           options.addArguments("--window-size=1920,1080");
            this.driver=new EdgeDriver(options);
        } else if (browserType.equalsIgnoreCase("FirefoxHeadless")) {
            WebDriverManager.firefoxdriver().setup();

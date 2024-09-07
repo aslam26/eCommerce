@@ -32,5 +32,9 @@ public class WaitUtils {
         wait.until(ExpectedConditions.elementToBeClickable(element)).click();
     }
 
+    public void waitUntilTextInElement(WebElement element, String textstart){
+        wait.until(ExpectedConditions.textToBePresentInElement(element,textstart));
+    }
+
 
 }

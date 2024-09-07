@@ -1,5 +1,6 @@
 package com.luma.Tests;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -27,7 +28,15 @@ public class CreateNewCustomerAccountTest extends BaseTest{
         test=extent.createTest("Verify Create a New Account Page is displayed.");
         cncAccount.clickingCreateAnAccountLink();
         cncAccount.enterDetailsToCreateAccount("","","","","");
-        cncAccount.checkMandatoryField();
+        //check for the actual error text
+        Assert.assertEquals(cncAccount.getFirstNameErrorText(),"This is a required field.");
+        Assert.assertEquals(cncAccount.getLastNameErrorText(),"This is a required field.");
+        Assert.assertEquals(cncAccount.getEmailErrorText(),"This is a required field.");
+        Assert.assertEquals(cncAccount.getPasswordErrorText(),"This is a required field.");
+        Assert.assertEquals(cncAccount.getConfirmPasswordText(),"This is a required field.");
+
+        test.pass("Mandatory field error messages were validated successfully");
+
     }
 
     @Test(priority = 1)
@@ -35,14 +44,26 @@ public class CreateNewCustomerAccountTest extends BaseTest{
         test= extent.createTest("Verify error message is displayed for invalid email address");
         String invalidEmail=prop.getProperty("invalidEmail");
         cncAccount.checkEmailAddress(invalidEmail);
-
+        String actualErrorMessage=cncAccount.invalidEmailErrorDisplayed();
+        String expectedErrorMessage="Please enter a valid email address (Ex: johndoe@domain.com).";
+        Assert.assertEquals(actualErrorMessage,expectedErrorMessage,"Error message not matching.");
     }
 
     @Test(priority = 2,dataProvider = "invalidPassword")
     public void verifyForInvalidPassword(String password,String confirmPassword, String expectedError){
         test= extent.createTest("Verify error message is displayed for invalid password.");
+        cncAccount.clickingCreateAnAccountLink();
         cncAccount.enterDetailsToCreateAccount("oggy","Doe","oggy@cartoon.com",password,confirmPassword);
-        cncAccount.checkPassword(password,confirmPassword,expectedError);
+        // Check if the expected error is for password or confirm password field
+        if(!password.equals(confirmPassword)) {
+            // Verify confirmation password error
+            String actualConfirmPasswordError= cncAccount.getInvalidConfirmPasswordErrorMessage();
+            Assert.assertEquals(actualConfirmPasswordError,expectedError,"Confirm Password error message does not match.");
+        }else {
+            // Verify password error
+            String actualPassworError = cncAccount.getInvalidPasswordErrorMessage();
+            Assert.assertEquals(actualPassworError, expectedError, "Password error message does not match.");
+        }
     }
 
     @Test(priority = 3 )

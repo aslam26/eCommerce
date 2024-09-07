@@ -31,7 +31,7 @@ public class ProductListTest extends BaseTest {
     public void verifyProductAddedToCartSuccessMessage(){
         test=extent.createTest("Verify success is displayed when product added from List.");
         productListPage.AddToCart();
-        waitUtils.waitUntilTextVisible(productListPage.successMessage,"You added");
+        waitUtils.waitUntilTextInElement(productListPage.successMessage,"You added");
         String productName=productListPage.getSelectProductName();
         String actualMessage=productListPage.getSuccessMessage();
         String expectedMessage="You added "+productName+" to your shopping cart.";
@@ -43,7 +43,7 @@ public class ProductListTest extends BaseTest {
     public void verifyUserisNavigatedToProductDetailPage(){
         test=extent.createTest("Verify user is navigated to Product Detail Page.");
         productListPage.dontSelectAnyOptionsUnderProduct();
-        waitUtils.waitUntilTextVisible(productListPage.chooseOptionMessage,"You need");
+        waitUtils.waitUntilTextInElement(productListPage.chooseOptionMessage,"You need");
         Assert.assertEquals(productListPage.optionSelectMessage(),"You need to choose options for your item.");
     }
 
@@ -70,7 +70,7 @@ public class ProductListTest extends BaseTest {
         test=extent.createTest("Verify product is added into cart.");
         String productName=productListPage.getTitleOfProduct();
         productListPage.clickAddToCartButton();
-        waitUtils.waitUntilTextVisible(productListPage.successMessage,"You added");
+        waitUtils.waitUntilTextInElement(productListPage.successMessage,"You added");
         String actualMessage=productListPage.getSuccessMessage();
         String expectedMessage="You added "+productName+" to your shopping cart.";
         Assert.assertEquals(actualMessage,expectedMessage,"The success message is not matching.");
