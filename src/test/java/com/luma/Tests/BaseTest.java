@@ -26,7 +26,7 @@ public class BaseTest {
     WebDriver driver;
     CommonDrivers cmnDriver;
     public static Properties prop;
-    String getBrowserType;
+   // String getBrowserType;
     String getBaseUrl;
     LoginPage loginPage;
     String currentWorkingDir=System.getProperty("user.dir");
@@ -59,10 +59,11 @@ public class BaseTest {
     }
 
 
+    @Parameters("browser")
     @BeforeClass
-    public void setup() throws Exception {
+    public void setup(String getBrowserType) throws Exception {
 
-        getBrowserType=prop.getProperty("browserType");
+      //  getBrowserType=prop.getProperty("browserType");
         cmnDriver=new CommonDrivers(getBrowserType);
 
         getBaseUrl=prop.getProperty("baseURL");

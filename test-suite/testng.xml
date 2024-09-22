@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="eCommerce Website Test">
-    <test name="Functional Testing" enabled="true">
+    <test name="Functional Test" enabled="true">
+        <parameter name="browser" value="chrome"/>
         <classes>
             <class name="com.luma.Tests.CreateNewCustomerAccountTest"/>
             <class name="com.luma.Tests.LoginTest"/>
@@ -9,5 +10,5 @@
             <class name="com.luma.Tests.ProductListTest"/>
             <class name="com.luma.Tests.MiniCartTest"/>
         </classes>
-    </test> <!-- Test -->
+    </test><!-- Test -->
 </suite> <!-- Suite -->
